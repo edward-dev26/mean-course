@@ -5,3 +5,8 @@ mat-form-field {
 .form-field {
   margin-bottom: 1.25em;
 }
+
+mat-card {
+  max-width: 600px;
+  margin: auto;
+}

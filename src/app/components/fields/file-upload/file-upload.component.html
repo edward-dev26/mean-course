@@ -1,0 +1,21 @@
+<div class="file-upload">
+  <button
+    type="button"
+    mat-stroked-button
+    [disabled]="disabled"
+    (click)="fileUpload.click()"
+    (blur)="markAsTouched()"
+  >
+    Select file
+  </button>
+  <input
+    type="file"
+    hidden
+    #fileUpload
+    [disabled]="disabled"
+    (change)="onFileChange($event)"
+  />
+  <div *ngIf="preview && !isInvalidMimeType" class="file-upload__preview">
+    <img [src]="preview" alt="preview" />
+  </div>
+</div>

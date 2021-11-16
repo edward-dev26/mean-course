@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  backendUrl: 'http://meanapp-env.eba-jdnvtphv.us-east-2.elasticbeanstalk.com',
 };

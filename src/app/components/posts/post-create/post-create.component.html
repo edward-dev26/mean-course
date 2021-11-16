@@ -1,11 +1,50 @@
-<mat-card>
-  <mat-form-field>
-    <input matInput [(ngModel)]="title" placeholder="Type post title...">
-  </mat-form-field>
+<mat-card *ngIf="!isLoading">
+  <form [formGroup]="form" #formRef="ngForm" (submit)="onSubmit()">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Type post title..."
+      />
+      <mat-error *ngIf="form.get('title')?.invalid">
+        Please enter a valid title
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput [(ngModel)]="content" cols="30" rows="10" placeholder="Type post content..."></textarea>
-  </mat-form-field>
+    <div class="form-field">
+      <app-file-upload
+        formControlName="image"
+        [isInvalidMimeType]="form.get('image')?.errors?.invalidMimeType"
+      >
+      </app-file-upload>
+      <mat-error
+        *ngIf="form.get('image')?.invalid && form.get('image')?.touched"
+      >
+        <ng-container
+          *ngIf="
+            form.get('image')?.errors?.invalidMimeType;
+            else selectFileMessage
+          "
+          >Invalid file type
+        </ng-container>
+        <ng-template #selectFileMessage>Please select an image</ng-template>
+      </mat-error>
+    </div>
 
-  <button mat-raised-button color="primary" (click)="onAddPost()">Save post</button>
+    <mat-form-field>
+      <textarea
+        matInput
+        cols="30"
+        rows="10"
+        formControlName="content"
+        placeholder="Type post content..."
+      >
+      </textarea>
+      <mat-error *ngIf="form.get('content')?.invalid">
+        Please enter a valid content
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Save post</button>
+  </form>
 </mat-card>

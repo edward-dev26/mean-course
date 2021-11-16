@@ -1,0 +1,8 @@
+.file-upload__preview {
+  height: 8rem;
+  margin: 1rem 0;
+}
+
+.file-upload__preview img {
+  height: 100%;
+}

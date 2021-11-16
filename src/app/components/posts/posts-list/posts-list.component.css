@@ -6,3 +6,15 @@
 .info-text {
   text-align: center;
 }
+
+.post-image {
+  margin: 1rem 0;
+}
+
+.post-image img {
+  width: 100%;
+}
+
+mat-paginator {
+  margin-top: 1.5rem;
+}

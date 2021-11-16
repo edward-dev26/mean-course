@@ -1,0 +1,26 @@
+<mat-card>
+  <form (submit)="onSubmit()" [formGroup]="form">
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Email" />
+
+      <mat-error *ngIf="form.get('email')?.invalid">
+        Please enter your email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+      />
+
+      <mat-error *ngIf="form.get('password')?.invalid">
+        Please enter your password
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Sign In</button>
+  </form>
+</mat-card>

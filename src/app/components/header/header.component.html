@@ -1,1 +1,44 @@
-<mat-toolbar color="primary">MyMessages</mat-toolbar>
+<mat-toolbar color="primary">
+  <div class="navbar">
+    <div class="navbar__menu">
+      <a class="navbar__logo" routerLink="/">MyMessages</a>
+      <ul *ngIf="isAuth">
+        <li>
+          <a
+            mat-button
+            routerLink="/create"
+            routerLinkActive="mat-stroked-button"
+            >Create post</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="navbar__auth">
+      <ul>
+        <ng-container *ngIf="!isAuth">
+          <li>
+            <a
+              mat-button
+              routerLink="/auth/sign-in"
+              routerLinkActive="mat-stroked-button"
+              >Sign In</a
+            >
+          </li>
+          <li>
+            <a
+              mat-button
+              routerLink="/auth/sign-up"
+              routerLinkActive="mat-stroked-button"
+              >Sign Up</a
+            >
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isAuth">
+          <li>
+            <button mat-button (click)="onLogout()">Logout</button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>

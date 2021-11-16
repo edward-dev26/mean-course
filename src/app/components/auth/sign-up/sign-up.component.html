@@ -1,0 +1,40 @@
+<mat-card>
+  <form (submit)="onSubmit()" [formGroup]="form">
+    <mat-form-field>
+      <input matInput formControlName="fullName" placeholder="Full Name" />
+
+      <mat-error *ngIf="form.get('fullName')?.invalid">
+        <ng-container
+          *ngIf="form.get('fullName')?.errors?.maxlength; else fullNameMessage"
+          >Full name must be less then 15 symbols</ng-container
+        >
+        <ng-template #fullNameMessage>
+          Please enter your full name
+        </ng-template>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Email" />
+
+      <mat-error *ngIf="form.get('email')?.invalid">
+        Please enter valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+      />
+
+      <mat-error *ngIf="form.get('password')?.invalid">
+        Please enter your password
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Sign Up</button>
+  </form>
+</mat-card>
