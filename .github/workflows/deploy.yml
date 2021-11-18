@@ -29,7 +29,7 @@ jobs:
           aws elasticbeanstalk create-application-version \
           --application-name mean-app \
           --source-bundle S3Bucket="mean-app-api",S3Key="deploy_package.zip" \
-          --version-label "ver-${{ github.sha }}"
+          --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
 
       - name: Deploy new ElasticBeanstalk application version
