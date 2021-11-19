@@ -22,7 +22,7 @@ jobs:
           aws-region: 'us-east-2'
 
       - name: Upload package to S3 bucket
-        run: aws s3 cp deploy_package.zip s3://mean-app-api
+        run: aws s3 cp ./backend/deploy_package.zip s3://mean-app-api
 
       - name: Create new ElasticBeanstalk Application Version
         run: |
