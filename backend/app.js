@@ -15,8 +15,4 @@ app.use('/images', express.static(path.join('images')));
 app.use('/api/posts/', postsRouter);
 app.use('/api/users/', usersRouter);
 
-app.use('', (req, res) => {
-  res.send('GitHub Actions are working!');
-});
-
 module.exports = app;
