@@ -1,4 +1,5 @@
 const fs = require('fs');
+const util = require('util');
 const S3 = require('aws-sdk/clients/s3');
 
 const region = process.env.AWS_REGION;
@@ -8,6 +9,7 @@ const bucketName = process.env.AWS_IMAGES_BUCKET_NAME;
 
 class UploadFilesService {
   #s3;
+  #deleteFile = util.promisify(fs.unlink);
 
   constructor() {
     this.#s3 = new S3({
@@ -27,6 +29,8 @@ class UploadFilesService {
     };
 
     const { key } = await this.#s3.upload(uploadParams).promise();
+
+    await this.#deleteFile(file.path);
 
     return key;
   }

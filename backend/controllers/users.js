@@ -34,7 +34,7 @@ class UsersController {
 
   async logout(req, res) {
     try {
-      await usersService.clearToken(req.user);
+      await usersService.clearToken(req.user, req.token);
 
       res.status(200).send({
         message: 'Logout successfully',

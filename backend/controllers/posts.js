@@ -95,6 +95,10 @@ class PostsController {
     try {
       const image = await fileUploadService.getFile(req.params.key);
 
+      if (!image) {
+        res.status(404).send();
+      }
+
       res.status(200).send(image);
     } catch (error) {
       console.log(error);

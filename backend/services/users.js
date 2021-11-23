@@ -34,8 +34,8 @@ class UsersService {
     };
   }
 
-  async clearToken(user) {
-    user.token = null;
+  async clearToken(user, token) {
+    user.tokens = user.tokens.filter((t) => t.token !== token);
     await user.save();
   }
 
@@ -44,7 +44,7 @@ class UsersService {
       throw new Error("id or token weren't provided!");
     }
 
-    return await User.findOne({ _id: id, token });
+    return await User.findOne({ _id: id, 'tokens.token': token });
   }
 }
 

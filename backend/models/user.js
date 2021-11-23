@@ -19,9 +19,14 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  token: {
-    type: String,
-  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
@@ -41,7 +46,7 @@ userSchema.methods.generateToken = async function () {
     }
   );
 
-  this.token = token;
+  this.tokens = [...this.tokens, { token }];
   await this.save();
 
   return { token, expiresIn: 3600 };
