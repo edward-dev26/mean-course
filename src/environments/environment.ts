@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://meanapp-env.eba-jdnvtphv.us-east-2.elasticbeanstalk.com',
+  backendUrl: 'http://localhost:3000',
 };
 
 /*

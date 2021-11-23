@@ -1,13 +1,15 @@
 const postsService = require('../services/posts');
-const { getFileUrl } = require('../helpers');
+const fileUploadService = require('../services/upload-files');
 
 class PostsController {
   async createPost(req, res) {
     try {
+      const filename = await fileUploadService.uploadFile(req.file);
+
       const post = await postsService.createPost({
         title: req.body.title,
         content: req.body.content,
-        imageUrl: getFileUrl(req),
+        imageUrl: this.#getImageUrl(filename),
         creator: req.user._id,
       });
 
@@ -21,7 +23,15 @@ class PostsController {
   async updatePost(req, res) {
     try {
       const { title, content } = req.body;
-      const imageUrl = req.file ? getFileUrl(req) : req.body.image;
+      let imageUrl = '';
+
+      if (req.file) {
+        const filename = await fileUploadService.uploadFile(req.file);
+
+        imageUrl = this.#getImageUrl(filename);
+      } else {
+        imageUrl = req.body.image.replace(this.#getHost(req), '');
+      }
 
       const isUpdated = await postsService.updatePost(
         req.params.id,
@@ -52,8 +62,9 @@ class PostsController {
     try {
       const pageSize = parseInt(req.query.pageSize);
       const page = parseInt(req.query.page);
+      const host = this.#getHost(req);
 
-      const result = await postsService.getPosts(page, pageSize);
+      const result = await postsService.getPosts(page, pageSize, host);
 
       res.status(200).json(result);
     } catch (error) {
@@ -64,7 +75,8 @@ class PostsController {
 
   async getPost(req, res) {
     try {
-      const post = await postsService.getPostById(req.params.id);
+      const host = this.#getHost(req);
+      const post = await postsService.getPostById(req.params.id, host);
 
       if (!post) {
         return res.status(404).send({
@@ -73,6 +85,17 @@ class PostsController {
       }
 
       res.status(200).send(post);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send();
+    }
+  }
+
+  async getImage(req, res) {
+    try {
+      const image = await fileUploadService.getFile(req.params.key);
+
+      res.status(200).send(image);
     } catch (error) {
       console.log(error);
       res.status(500).send();
@@ -100,6 +123,14 @@ class PostsController {
       console.log(error);
       res.status(500).send();
     }
+  }
+
+  #getImageUrl(filename) {
+    return `/api/posts/images/${filename}`;
+  }
+
+  #getHost(req) {
+    return `${req.protocol}://${req.get('host')}`;
   }
 }
 
