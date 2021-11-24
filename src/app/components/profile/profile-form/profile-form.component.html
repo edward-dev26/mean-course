@@ -1,0 +1,71 @@
+<div class="form">
+  <h1>Update Profile</h1>
+
+  <mat-card>
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <div class="form-field">
+        <app-file-upload
+          formControlName="avatar"
+          [isInvalidMimeType]="form.get('avatar')?.errors?.invalidMimeType"
+        >
+        </app-file-upload>
+        <mat-error
+          *ngIf="
+            form.get('avatar')?.invalid &&
+            form.get('avatar')?.errors?.invalidMimeType
+          "
+        >
+          Invalid file type
+        </mat-error>
+      </div>
+
+      <mat-form-field>
+        <input matInput formControlName="fullName" placeholder="Full Name" />
+
+        <mat-error *ngIf="form.get('fullName')?.invalid">
+          <ng-container
+            *ngIf="
+              form.get('fullName')?.errors?.maxlength;
+              else fullNameMessage
+            "
+            >Full name must be less then 15 symbols</ng-container
+          >
+          <ng-template #fullNameMessage>
+            Please enter your full name
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dateOfBirth"
+          placeholder="Date Of Birth"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field>
+          <mat-select placeholder="Country">
+            <mat-option *ngFor="let food of []" [value]="food">
+              test
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="City">
+            <mat-option *ngFor="let food of []" [value]="food">
+              test
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+  </mat-card>
+</div>

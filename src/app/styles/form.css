@@ -6,7 +6,16 @@ mat-form-field {
   margin-bottom: 1.25em;
 }
 
-mat-card {
+.form-row {
+  display: flex;
+}
+
+.form-row mat-form-field:not(:last-child) {
+  margin-right: 1.5rem;
+}
+
+mat-card,
+.form {
   max-width: 600px;
   margin: auto;
 }

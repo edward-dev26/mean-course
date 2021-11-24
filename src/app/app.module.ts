@@ -7,13 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PostsModule } from './components/posts/posts.module';
+import { ProfileModule } from './components/profile/profile.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { MatModule } from './mat.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ErrorComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ErrorComponent,
+    NotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +28,7 @@ import { MatModule } from './mat.module';
     HttpClientModule,
     MatModule,
     PostsModule,
+    ProfileModule,
   ],
   providers: [
     {
